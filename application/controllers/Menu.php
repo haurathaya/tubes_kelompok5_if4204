@@ -3,6 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Menu extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Menu_model');
+        is_logged_in();
+    }
+
+
     public function index()
     {
         $data['title'] = 'Menu Management';
@@ -27,6 +35,59 @@ class Menu extends CI_Controller
         }
     }
 
+    public function deleteMenu($id)
+    {
+        $this->Menu_model->deletingMenu($id);
+        $this->session->set_flashdata('flash', 'deleted');
+        redirect('menu');
+    }
+
+    public function deleteSubMenu($id)
+    {
+        $this->Menu_model->deletingSubMenu($id);
+        $this->session->set_flashdata('flash', 'deleted');
+        redirect('menu/submenu');
+    }
+
+    public function editMenu($id)
+    {
+        $data['title'] = 'Form Edit Menu';
+
+        $data['menu'] = $this->Menu_model->getMenubyId($id);
+
+        $this->form_validation->set_rules('nama_menu', 'Nama_Menu', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('menu/editMenu', $data);
+        } else {
+            $this->Menu_model->editingMenu();
+            $this->session->set_flashdata('flash', 'edited');
+            redirect('menu');
+        }
+    }
+
+    public function editSubMenu($id)
+    {
+        $data['title'] = 'Form Edit Sub Menu';
+
+        $data['submenu'] = $this->Menu_model->getSubMenubyId($id);
+        $data['menu'] = $this->db->get('user_menu')->result_array();
+
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('menu_id', 'Menu', 'required');
+        $this->form_validation->set_rules('url', 'URL', 'required');
+        $this->form_validation->set_rules('icon', 'icon', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('menu/editSubmenu', $data);
+        } else {
+            $this->Menu_model->editingSubMenu();
+            $this->session->set_flashdata('flash', 'edited');
+            redirect('menu/submenu');
+        }
+    }
 
     public function submenu()
     {
