@@ -6,24 +6,25 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-ambulance"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Klinik THT</div>
+        <div class="sidebar-brand-text mx-3">Klinik MediTHT</div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+
     <!-- QUERY MENU -->
     <?php
     $role_id = $this->session->userdata('role_id');
     $queryMenu = "SELECT `user_menu`.`id`, `nama_menu`
-                            FROM `user_menu` JOIN `user_access_menu`
-                              ON `user_menu`.`id` = `user_access_menu`.`menu_id`
-                           WHERE `user_access_menu`.`role_id` = $role_id
-                        ORDER BY `user_access_menu`.`menu_id` ASC
-                        ";
+                    FROM `user_menu` JOIN `user_access_menu`
+                    ON `user_menu`.`id` = `user_access_menu`.`menu_id`
+                    WHERE `user_access_menu`.`role_id` = $role_id
+                    ORDER BY `user_access_menu`.`menu_id` ASC
+                ";
     $menu = $this->db->query($queryMenu)->result_array();
-
     ?>
+
 
     <!-- LOOPING MENU -->
     <?php foreach ($menu as $m) : ?>
@@ -60,10 +61,11 @@
         <?php endforeach; ?>
 
         <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('auth/logout') ?>">
+            <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
                 <span>Logout</span></a>
         </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -74,4 +76,4 @@
         </div>
 
 </ul>
-<!-- End of Sidebar -->
+<!-- End  of Sidebar -->

@@ -1,4 +1,3 @@
-  
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -40,7 +39,7 @@ class Menu_model extends CI_Model
     public function editingMenu()
     {
         $data = [
-            "nama_menu" => $this->input->post('nama_menu', true),
+            "nama_menu" => $this->input->post('nama_menu', true)
         ];
 
         $this->db->where('id', $this->input->post('id'));

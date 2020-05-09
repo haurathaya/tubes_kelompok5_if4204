@@ -38,31 +38,35 @@ class Menu extends CI_Controller
     public function deleteMenu($id)
     {
         $this->Menu_model->deletingMenu($id);
-        $this->session->set_flashdata('flash', 'deleted');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Selected menu deleted!</div>');
         redirect('menu');
     }
 
     public function deleteSubMenu($id)
     {
         $this->Menu_model->deletingSubMenu($id);
-        $this->session->set_flashdata('flash', 'deleted');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        Selected submenu deleted!</div>');
         redirect('menu/submenu');
     }
 
+    #COTS3: Lengkapi function ini
     public function editMenu($id)
     {
         $data['title'] = 'Form Edit Menu';
 
-        $data['menu'] = $this->Menu_model->getMenubyId($id);
+        $data1['menu'] = $this->Menu_model->getMenuById($id);
 
-        $this->form_validation->set_rules('nama_menu', 'Nama_Menu', 'required');
+        $this->form_validation->set_rules('nama_menu', 'Nama Menu', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
-            $this->load->view('menu/editMenu', $data);
+            $this->load->view('menu/editMenu', $data1);
         } else {
             $this->Menu_model->editingMenu();
-            $this->session->set_flashdata('flash', 'edited');
+            $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">
+        Edit menu successful!</div>');
             redirect('menu');
         }
     }
@@ -71,8 +75,8 @@ class Menu extends CI_Controller
     {
         $data['title'] = 'Form Edit Sub Menu';
 
-        $data['submenu'] = $this->Menu_model->getSubMenubyId($id);
-        $data['menu'] = $this->db->get('user_menu')->result_array();
+        $data1['submenu'] = $this->Menu_model->getSubMenubyId($id);
+        $data1['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->form_validation->set_rules('judul', 'Judul', 'required');
         $this->form_validation->set_rules('menu_id', 'Menu', 'required');
@@ -81,10 +85,11 @@ class Menu extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
-            $this->load->view('menu/editSubmenu', $data);
+            $this->load->view('menu/editSubmenu', $data1);
         } else {
             $this->Menu_model->editingSubMenu();
-            $this->session->set_flashdata('flash', 'edited');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            Edit submenu successful!</div>');
             redirect('menu/submenu');
         }
     }

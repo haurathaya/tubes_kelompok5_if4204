@@ -13,7 +13,7 @@
                             <input type="text" class="form-control" id="nama_menu" name="nama_menu" value="<?= $menu['nama_menu']; ?>">
                             <small class="form-text text-danger"><?= form_error('nama') ?>.</small>
                         </div>
-                        <button type="submit" name="edit" class="btn btn-primary float-right">Edit Data Menu</button>
+                        <button type="submit" name="editMenu" class="btn btn-primary float-right">Edit Data Menu</button>
                     </form>
                 </div>
             </div>

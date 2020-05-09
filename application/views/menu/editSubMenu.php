@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" id="icon" name="icon" value="<?= $submenu['icon']; ?>">
                             <small class="form-text text-danger"><?= form_error('Icon') ?>.</small>
                         </div>
-                        <button type="submit" name="edit" class="btn btn-primary float-right">Edit Data Sub Menu</button>
+                        <button type="submit" name="editSubMenu" class="btn btn-primary float-right">Edit Data Sub Menu</button>
                     </form>
                 </div>
             </div>
